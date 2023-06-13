@@ -1,7 +1,14 @@
-variable "appId" {
-  description = "Azure Kubernetes Service Cluster service principal"
+terraform {
+  required_version = ">=1.0"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+  }
 }
 
-variable "password" {
-  description = "Azure Kubernetes Service Cluster password"
+provider "azurerm" {
+  features {}
 }
