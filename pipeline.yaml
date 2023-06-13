@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: TerraformInstaller@0
+  displayName: 'Install Terraform'
+  inputs:
+    terraformVersion: '1.0.0'  # Specify the desired Terraform version
+
+- script: |
+    terraform init
+    terraform plan -out=tfplan
+  displayName: 'Terraform Init and Plan'
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Terraform plan'
+  inputs:
+    artifactName: 'tfplan'
+    targetPath: '$(Pipeline.Workspace)'
+
+# Add more tasks for authentication, backend configuration, apply, etc.
